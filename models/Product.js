@@ -33,6 +33,10 @@ const productSchema = new mongoose.Schema(
     sold:{
         type: Number,
         default: 0
+    },
+    collectionId:{
+        type: mongoose.Schema.Types.ObjectId, // like mimicing a foreign key 
+        ref: "Collection"
     }
 
     },

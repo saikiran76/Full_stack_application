@@ -119,3 +119,60 @@ export const logout = asyncHandler(async(_req, res)=>{
     })
 })
 
+/*
+
+@ForgotPassword
+@route http://localhost:/5000/api/auth/password/forgot
+@description: User will submit email and we will generate a token 
+@parameters: E-mail
+@returns success message as 'Email Sent'
+
+*/
+
+export const ForgotPassword = asyncHandler(async(req, res)=>{
+    // Grabbing the email
+    const {email} = req.body
+    // Check email for empty string -  Email Validation
+    const user = User.findOne({email});
+    if(!user){
+        throw new CustomError('User not found', 404)
+    }
+    const resetToken = user.generateForgotPasswordToken()
+    await user.save({validateBeforeSave: false});
+
+    // generating url
+    const resetURL = 
+    `${req.protocol}://${req.get("host")}api/auth/password/reset${resetToken}`
+
+    const text = `Your password reset url is 
+    \n\n ${resetURL}\n\n`
+
+    // send reset url to user
+    try{
+        await mailHelper({
+            email: user.email,
+            subject:"Password reset for website",
+            text: text,
+        })
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email}`
+        })
+
+    }catch(err){
+        //roll back - clear fields and save
+        user.forgotPasswordToken = undefined
+        user.forgotPasswordExpiry = undefined
+
+        await user.save({validateBeforeSave: false})
+        throw new CustomError(err.message || 'Failed to send email');
+
+
+    }
+
+
+})
+
+
+
+

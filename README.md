@@ -5,17 +5,17 @@
 
 ## Overview
 
-Welcome to our E-commerce Goods Rental Platform – your one-stop solution for renting a wide range of items, from furniture to two-wheelers, and more. This repository houses the backend components of our platform.
+Welcome to the E-commerce Goods Rental Platform – a solution for renting a wide range of items, from furniture to two-wheelers, and more. This repository houses the backend components of our platform.
 
 ### Features
 
-- **Database Models:** We have meticulously designed database models for orders/rentals, products, categories, and users to ensure efficient data management.
+- **Database Models:** I have meticulously designed database models for orders/rentals, products, categories, and users to ensure efficient data management.
 
-- **Authentication:** Our platform provides a robust authentication system, including user registration and login. Forgot Password and Reset Password features have been seamlessly integrated for added user convenience.
+- **Authentication:** The platform provides a robust authentication system, including user registration and login. Forgot Password and Reset Password features have been seamlessly integrated for added user convenience.
 
-- **Image Upload:** We leverage AWS S3 bucket services for seamless image uploading. This ensures that product images are presented to users in the most visually appealing way possible.
+- **Image Upload:** I leveraged AWS S3 bucket services for seamless image uploading. This ensures that product images are presented to users in the most visually appealing way possible.
 
-- **Payment Gateway:** We've integrated Razorpay as our payment gateway, making the checkout process smooth and secure for product orders/rentals.
+- **Payment Gateway:** I've integrated Razorpay as our payment gateway, making the checkout process smooth and secure for product orders/rentals.
 
 ## Getting Started
 
@@ -36,7 +36,7 @@ To set up the backend of this project on your local machine, follow these steps:
 
 3. Configure Environment Variables:
 
-   - Rename the `.env.example` file to `.env` and fill in the necessary environment variables such as database connection details, AWS S3 credentials, and Razorpay API keys.
+   - Rename the `.env.example` file to `.env` and fill in the necessary environment variables such as database connection details, AWS S3 credentials, and Razorpay API keys. (if needed)
 
 4. Start the server:
 

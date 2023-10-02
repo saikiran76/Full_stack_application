@@ -174,15 +174,14 @@ export const ForgotPassword = asyncHandler(async(req, res)=>{
 })
 
 
-/*
 
-@ResetPassword
-@route http://localhost:/5000/api/auth/password/reset/:resetToken (we pass the url when when requested)
-@description: User will be able to reset password based on token
-@parameters: token from url, password and confirm password
-@returns User Object
-
-*/
+/******************************************************
+ * @ResetPassword
+ * @route route http://localhost:/5000/api/auth/profile (we pass the url when when requested)
+ * @description User will be able to reset password based on token
+ * @parameters token from url, password and confirm password
+ * @returns User Object
+ ******************************************************/
 
 export const resetPassword = asyncHandler(async(req, res)=>{
     
@@ -236,14 +235,13 @@ export const resetPassword = asyncHandler(async(req, res)=>{
 // next, create a controller for change password
 
 
-/*
-@GetProfile
-@route http://localhost:/5000/api/auth/profile (we pass the url when when requested)
-@description check for token and populate req.user
-@parameters 
-@returns User Object
-
-*/
+/******************************************************
+ * @GetProfile
+ * @route route http://localhost:/5000/api/auth/profile (we pass the url when when requested)
+ * @description check for token and populate req.user
+ * @parameters name, email, password
+ * @returns User Object
+ ******************************************************/
 
 export const isLoggedIn = asyncHandler(async(req, res)=>{
     const {user} = req

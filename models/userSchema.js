@@ -80,7 +80,7 @@ userSchema.methods ={
 
         //step 1 - save to DB
         this.forgotPasswordToken = crypto
-        .createHash("sha250")
+        .createHash("sha256")
         .update(forgotToken)
         .digest("hex")
 

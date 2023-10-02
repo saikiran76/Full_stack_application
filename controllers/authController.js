@@ -71,7 +71,7 @@ export const login = asyncHandler(async (req, res)=>{
         throw new CustomError('Please fill all the fields', 400);
     }
 
-    const user = User.findOne({email}).select("+password")
+    const user = await User.findOne({email}).select("+password")
 
     if(!user){
         throw new CustomError("Invalid Credentials", 400)
@@ -172,6 +172,68 @@ export const ForgotPassword = asyncHandler(async(req, res)=>{
 
 
 })
+
+
+/*
+
+@ResetPassword
+@route http://localhost:/5000/api/auth/password/reset/:resetToken (we pass the url when when requested)
+@description: User will be able to reset password based on token
+@parameters: token from url, password and confirm password
+@returns User Object
+
+*/
+
+export const resetPassword = asyncHandler(async(req, res)=>{
+    
+    const {token: resetToken} = req.params
+    const {password, confirmPassword} =req.body
+    //decrypt the forgot password token and verify by matching the user's forgot password token in the db using findOne (finding based on token)
+    const resetPasswordToken = crypto 
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex')
+
+    const user = User.findOne(
+        {
+            forgotPasswordToken: resetPasswordToken,
+            forgotPasswordExpiry: {$gt: Date.now()} // gt - greater than atleast now 
+            
+
+        })
+
+
+        if(!user){
+            throw new CustomError('password token is invalid or expired', 400)
+        }
+
+        if(password != confirmPassword){
+            throw new CustomError('Password and confirm Password fields doesnt match', 400)
+        }
+
+        user.password = password
+        user.forgotPasswordExpiry = undefined
+        user.forgotPasswordExpiry = undefined
+
+        // the new password's encryption will be handled automaically after it saves
+
+        await user.save()
+
+        //create token and send it to user
+        const token = user.getJwtToken()
+        user.password = undefined
+        // helper method for cookie and 
+        res.cookie("token", token, cookieOptions)
+        res.status(200).json({
+            success: true,
+            user
+        })
+
+
+})
+
+
+// next, create a controller for change password
 
 
 

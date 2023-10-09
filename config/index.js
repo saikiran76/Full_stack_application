@@ -4,7 +4,7 @@ dotenv.config()
 
 const config = {
     JWT_SECRET: procces.env.JWT_SECRET, 
-    JWT_EXPIRY: process.env.JWT_EXPIRY || "30d",
+    JWT_EXPIRY: process.env.JWT_EXPIRY,
     MONGODB_URL: process.env.MONGODB_URL, 
     PORT: process.env.PORT,
     SMTP_MAIL_HOST: process.env.SMTP_MAIL_HOST,
